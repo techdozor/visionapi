@@ -5,3 +5,4 @@ This project is a part of the Science Fair project for Cross Roads Elementary sc
 What's needed:
 - node.js
 - npm install --save @google-cloud/vision
+- export GOOGLE_APPLICATION_CREDENTIALS - pointing to json API Service Account https://cloud.google.com/vision/docs/auth. Note: have to go through motion of setting up the account, enabling the API, etc. etc. etc.
