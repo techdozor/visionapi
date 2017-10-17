@@ -3,6 +3,7 @@ var app     = express();
 var path    = require("path");
 // Imports the Google Cloud client library
 var Vision  = require('@google-cloud/vision');
+var data = "";
 
 
 app.get('/',function(req,res){
@@ -11,19 +12,29 @@ app.get('/',function(req,res){
   //__dirname : It will resolve to your project folder.
 });
 
-app.get('/recognize',function(req,res){
-    console.log("Recognize");    
+app.get('/result',function(req,res){
+    console.log(data);
+    res.send(data);
+});
+
+app.get('/recognize',function(req, res){
+    console.log("Recognize");  
+    //var data = "test";
+    data = "";
+    console.log(data + "\n");
+
     // Instantiates a client
     const vision = Vision();
     // The path to the local image file, e.g. "/path/to/image.png"
-    const fileName = '/home/srazin/Development/nodejs/1.jpg';
+    const fileName = '/home/srazin/Development/visionapi/2.jpg';
 
     // Performs label detection on the local file
     vision.labelDetection({ source: { filename: fileName } })
         .then((results) => {
             const labels = results[0].labelAnnotations;
             console.log('Labels:');
-            labels.forEach((label) => console.log(label));
+            labels.forEach((label) => data += JSON.stringify(label.description) + "\n");
+            //console.log(data);
         })
         .catch((err) => {
             console.error('ERROR:', err);
@@ -33,7 +44,7 @@ app.get('/recognize',function(req,res){
         .then((results) => {
             const logos = results[0].logoAnnotations;
             console.log('Logos:');
-            logos.forEach((logo) => console.log(logo));
+            logos.forEach((logo) => data += JSON.stringify(logo.description) + "\n");
         })
         .catch((err) => {
         console.error('ERROR:', err);
@@ -44,7 +55,7 @@ app.get('/recognize',function(req,res){
         .then((results) => {
             const landmarks = results[0].landmarkAnnotations;
             console.log('Landmarks:');
-            landmarks.forEach((landmark) => console.log(landmark));
+            landmarks.forEach((landmark) => data += JSON.stringify(landmark.description) + "\n");
         })
         .catch((err) => {
             console.error('ERROR:', err);
@@ -55,13 +66,13 @@ app.get('/recognize',function(req,res){
         .then((results) => {
             const detections = results[0].textAnnotations;
             console.log('Text:');
-            detections.forEach((text) => console.log(text));
+            detections.forEach((label) => data += JSON.stringify(text.description) + "\n");
+            //console.log("Recognition result: \n" + data);
         })
         .catch((err) => {
         console.error('ERROR:', err);
         });
-
-
+    res.sendFile(__dirname + '/done.html');
 });
 
 app.get('/sitemap',function(req,res){
