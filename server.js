@@ -1,10 +1,41 @@
 var express = require("express");
 var app     = express();
 var path    = require("path");
+var multer  = require('multer');
 // Imports the Google Cloud client library
 var Vision  = require('@google-cloud/vision');
-var data = "";
+var fs = require('fs');
+var data1 = "";
+var fileToRecognize = "/uploads/image.jpg";
 
+var upload = multer({ dest: 'uploads/' });
+
+
+/*app.post('/upload-target',function(req,res){
+    console.log("upload-target " + req.filename );
+    fs.readFile(req.file, function (err, data) {
+        // ...
+        var newPath = __dirname + "/uploads/uploadedFileName";
+        fs.writeFile(newPath, data, function (err) {
+        res.redirect("back");
+        });
+    });
+});*/
+
+app.post( '/upload-target', upload.single('file'), function(req,res){ 
+    console.log("upload file "+req.file.path + " " + req.file.filename);
+    fs.readFile(req.file.path, function (err, data) {
+          var newPath = __dirname + fileToRecognize;
+          fs.writeFile(newPath, data, function (err) {
+        });
+    });
+
+    fs.unlink(req.file.path, (err) => {
+        if (err) throw err;
+        console.log("successfully deleted " + req.file.path);
+    });
+    res.status( 200 ).send( req.file );
+});
 
 app.get('/',function(req,res){
   console.log("Sending data");
@@ -12,16 +43,21 @@ app.get('/',function(req,res){
   //__dirname : It will resolve to your project folder.
 });
 
+app.get('/upload',function(req,res){
+    console.log("Upload file"); 
+    res.sendFile(__dirname + '/upload.html');
+});
+
 app.get('/result',function(req,res){
-    console.log(data);
-    res.send(data);
+    console.log(data1);
+    res.send(data1);
 });
 
 app.get('/recognize',function(req, res){
     console.log("Recognize");  
     //var data = "test";
-    data = "";
-    console.log(data + "\n");
+    data1 = "";
+    console.log(data1 + "\n");
 
     // Instantiates a client
     const vision = Vision();
@@ -33,7 +69,7 @@ app.get('/recognize',function(req, res){
         .then((results) => {
             const labels = results[0].labelAnnotations;
             console.log('Labels:');
-            labels.forEach((label) => data += JSON.stringify(label.description) + "\n");
+            labels.forEach((label) => data1 += JSON.stringify(label.description) + "\n");
             //console.log(data);
         })
         .catch((err) => {
@@ -44,7 +80,7 @@ app.get('/recognize',function(req, res){
         .then((results) => {
             const logos = results[0].logoAnnotations;
             console.log('Logos:');
-            logos.forEach((logo) => data += JSON.stringify(logo.description) + "\n");
+            logos.forEach((logo) => data1 += JSON.stringify(logo.description) + "\n");
         })
         .catch((err) => {
         console.error('ERROR:', err);
@@ -55,7 +91,7 @@ app.get('/recognize',function(req, res){
         .then((results) => {
             const landmarks = results[0].landmarkAnnotations;
             console.log('Landmarks:');
-            landmarks.forEach((landmark) => data += JSON.stringify(landmark.description) + "\n");
+            landmarks.forEach((landmark) => data1 += JSON.stringify(landmark.description) + "\n");
         })
         .catch((err) => {
             console.error('ERROR:', err);
@@ -66,7 +102,7 @@ app.get('/recognize',function(req, res){
         .then((results) => {
             const detections = results[0].textAnnotations;
             console.log('Text:');
-            detections.forEach((label) => data += JSON.stringify(text.description) + "\n");
+            detections.forEach((label) => data1 += JSON.stringify(text.description) + "\n");
             //console.log("Recognition result: \n" + data);
         })
         .catch((err) => {
