@@ -100,10 +100,20 @@ app.get('/upload',function(req,res){
     res.sendFile(__dirname + '/upload.html');
 });
 
+//Render dropzone.css
+app.get('/dropzone.css',function(req,res){
+    res.sendFile(__dirname + '/dropzone.css');
+});
+
+//Render dropzone.js
+app.get('/dropzone.js',function(req,res){
+    res.sendFile(__dirname + '/dropzone.js');
+});
+
 //Provide the results of recognition
 app.get('/result',function(req,res){
     console.log(data1);
-    res.send(data1);
+    res.send(data1.replace(/['"]+/g, ''));
 });
 
 //Test regonizer api
