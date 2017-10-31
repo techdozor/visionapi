@@ -126,7 +126,8 @@ app.get('/recognize',function(req, res){
     // Instantiates a client
     const vision = Vision();
     // The path to the local image file, e.g. "/path/to/image.png"
-    const fileName = '/home/srazin/Development/visionapi/2.jpg';
+    const fileName = __dirname + '/2.jpg';
+    console.log(filename);
 
     // Performs label detection on the local file
     vision.labelDetection({ source: { filename: fileName } })
