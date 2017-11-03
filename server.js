@@ -34,7 +34,6 @@ app.post( '/upload-target', upload.single('file'), function(req,res){
     res.status( 200 ).send( req.file );
 });
 
-
 //Image recognition function
 function recognize(fileSubPath) {
     console.log("Calling recognize with: " + fileSubPath);
@@ -100,6 +99,17 @@ app.get('/upload',function(req,res){
     res.sendFile(__dirname + '/upload.html');
 });
 
+//Test function to read the results of the URL
+app.get('/read', function(req,res){
+	var request = require('request');
+	request.get('http://13.59.30.244:3000/result', function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			var csv = body;
+			console.log('we have read:' + csv);
+    		}
+	});
+});
+
 //Render dropzone.css
 app.get('/dropzone.css',function(req,res){
     res.sendFile(__dirname + '/dropzone.css');
@@ -112,6 +122,7 @@ app.get('/dropzone.js',function(req,res){
 
 //Provide the results of recognition
 app.get('/result',function(req,res){
+    //data1="Test123"; //Overwrite for testing
     console.log(data1);
     res.send(data1.replace(/['"]+/g, ''));
 });
