@@ -100,7 +100,7 @@ app.get('/upload',function(req,res){
 });
 
 //Test function to read the results of the URL
-app.get('/read', function(req,res){
+/*app.get('/read', function(req,res){
 	var request = require('request');
 	request.get('http://13.59.30.244:3000/result', function (error, response, body) {
 		if (!error && response.statusCode == 200) {
@@ -108,7 +108,7 @@ app.get('/read', function(req,res){
 			console.log('we have read:' + csv);
     		}
 	});
-});
+});*/
 
 //Render dropzone.css
 app.get('/dropzone.css',function(req,res){
