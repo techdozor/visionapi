@@ -61,7 +61,7 @@ function recognize(fileSubPath) {
         .then((results) => {
             const labels = results[0].labelAnnotations;
             console.log('Labels:');
-            labels.forEach((label) => data1 += JSON.stringify(label.description) + "\n");
+            labels.forEach((label) => data1 += JSON.stringify(label.description) + ", ");
             //console.log(data);
         })
         .catch((err) => {
@@ -72,7 +72,7 @@ function recognize(fileSubPath) {
         .then((results) => {
             const logos = results[0].logoAnnotations;
             console.log('Logos:');
-            logos.forEach((logo) => data1 += JSON.stringify(logo.description) + "\n");
+            logos.forEach((logo) => data1 += JSON.stringify(logo.description) + ", ");
         })
         .catch((err) => {
         console.error('ERROR:', err);
@@ -83,7 +83,7 @@ function recognize(fileSubPath) {
         .then((results) => {
             const landmarks = results[0].landmarkAnnotations;
             console.log('Landmarks:');
-            landmarks.forEach((landmark) => data1 += JSON.stringify(landmark.description) + "\n");
+            landmarks.forEach((landmark) => data1 += JSON.stringify(landmark.description) + ", ");
         })
         .catch((err) => {
             console.error('ERROR:', err);
@@ -94,7 +94,7 @@ function recognize(fileSubPath) {
         .then((results) => {
             const detections = results[0].textAnnotations;
             console.log('Text:');
-            detections.forEach((label) => data1 += JSON.stringify(text.description) + "\n");
+            detections.forEach((label) => data1 += JSON.stringify(text.description) + ", ");
             //console.log("Recognition result: \n" + data);
         })
         .catch((err) => {
