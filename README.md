@@ -20,3 +20,5 @@ This project leverages node.js, Vision API from Google (possibly other providers
 
 ## It is much better with Alexa
 Power your Alexa to see: https://github.com/techdozor/alexvisionskill
+
+Have fun!
