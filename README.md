@@ -14,4 +14,5 @@ This project is a part of the Science Fair project for Cross Roads Elementary sc
 - Upload your image (other files won't work)
 - After call /results and see the results of the image recognition that today is based on Google Vision API and is able to recognize lables, text, labels.
 
-Next step is to introudce Alexa skill. Stay tuned.
+## It is much better with Alexa
+Power your Alexa to see: https://github.com/techdozor/alexvisionskill
