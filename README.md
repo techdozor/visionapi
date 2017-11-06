@@ -3,7 +3,7 @@
 ### The MIT License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-(https://github.com/allure-framework/allure-core/releases/latest) 
+[![release](http://github-release-version.herokuapp.com/github/allure-framework/allure-core/release.svg?style=flat)]
 
 This project is a part of the Science Fair project for Cross Roads Elementary school. It leverages node.js as well as vision APIs from Google (possibly other providers) and can be used as an example of how such can be done. Main focus is obtaining an image, feeding it to the API, and retrieving the labels for the image as a result of recognition operation.
 
