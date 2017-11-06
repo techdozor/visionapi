@@ -4,8 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This project was started as a Science Fair project for Cross Roads Elementary school in Irmo, SC. It leverages node.js, Vision API from Google (possibly other providers), and even integrate with Alexa (see below). 
+This project was started as a Science Fair project for Cross Roads Elementary School in Irmo, SC (https://www.lexrich5.org/cris) by Dan (http://dan.techdozor.org).
 Main focus of this project is obtaining an image, feeding it to the Vision API, and retrieving the identified properties of the image as a result of recognition operation.
+This project leverages node.js, Vision API from Google (possibly other providers), and even integrate with Alexa (see below). 
 
 ## What's needed:
 - node.js
