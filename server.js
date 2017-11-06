@@ -13,10 +13,15 @@ var upload = multer({ dest: 'uploads/' });
 //POST operation from upload html to upload and recognize the image
 app.post( '/upload-target', upload.single('file'), function(req,res){ 
     console.log("upload file "+req.file.path + " " + req.file.filename);
-    fs.readFile(req.file.path, function (err, data) {
-          var newPath = __dirname + fileToRecognize;
-          fs.writeFile(newPath, data, function (err) {
-        });
+
+    fileToWrite(req.file.path, function (result) {
+        recognize(fileToRecognize, function(err, result) {
+            if(err) {
+                console.log("Error occured recognizing the image");
+            } else {
+                console.log("Recognition was successful");
+            }
+    	});
     });
 
     fs.unlink(req.file.path, (err) => {
@@ -24,15 +29,21 @@ app.post( '/upload-target', upload.single('file'), function(req,res){
         console.log("successfully deleted " + req.file.path);
     });
 
-    recognize(fileToRecognize, function(err, result) {
-        if(err) {
-            console.log("Error occured recognizing the image");
-        } else {
-            console.log("Recognition was successful");
-        }
-    });
     res.status( 200 ).send( req.file );
 });
+
+//funcion to write into filreToRecognize prior to mving forwad
+function fileToWrite(fileName, callback){
+    console.log("Get a result");
+
+    fs.readFile(fileName, function (err, data) {
+          var newPath = __dirname + fileToRecognize; 
+          fs.writeFile(newPath, data, function (err) {
+              return callback('blah');
+        });
+    });
+};
+
 
 //Image recognition function
 function recognize(fileSubPath) {
